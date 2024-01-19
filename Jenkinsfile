@@ -1,14 +1,30 @@
 pipeline {
   agent any
   stages {
-    stage('Build') {
+    stage('Git Clone Repo') {
       steps {
-        echo "building"
+        scripts {
+          git url: https://github.com/petkovp/multiBranch.git
+          sh '''
+          ls -al
+          git branch -a
+          '''
+        }
+      }
+    }
+    stage('Docker Build') {
+      steps {
+        sh '''
+        docker build -t demo-docker .
+        docker tag demo-docker:latest jenkins/pg-docker/demo-docker:latest
+        '''
       }
     }
     stage('Test') {
       steps {
-        echo "testing"
+        sh '''
+        docker images -a
+        '''
       }
     }
   }
