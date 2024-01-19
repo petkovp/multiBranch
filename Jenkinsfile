@@ -1,13 +1,6 @@
 pipeline {
   agent any
   stages {
-    stage('Git Clone Repo') {
-      steps {
-        scripts {
-          git url: 'https://github.com/petkovp/multiBranch.git'
-        }
-      }
-    }
     stage('Docker Build') {
       steps {
         sh '''
