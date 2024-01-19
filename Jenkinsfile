@@ -1,7 +1,5 @@
 pipeline {
-  agent {
-    docker { image 'jenkins/jnlp-agent-docker' args '-u root' }
-}
+  agent kubernetes
   stages {
     stage('Docker Build') {
       steps {
