@@ -5,10 +5,6 @@ pipeline {
       steps {
         scripts {
           git url: 'https://github.com/petkovp/multiBranch.git'
-          sh '''
-          ls -al
-          git branch -a
-          '''
         }
       }
     }
