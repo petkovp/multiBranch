@@ -1,5 +1,7 @@
 pipeline {
-  agent any
+  agent {
+  docker { image 'jenkins/jnlp-agent-docker' args '-u root' }
+}
   stages {
     stage('Docker Build') {
       steps {
