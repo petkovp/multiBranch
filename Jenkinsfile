@@ -1,21 +1,22 @@
 pipeline {
   agent {
-    label 'docker'
+    kubernetes {
+      inheritFrom 'aws'
+    }
   }
   stages {
-    stage('Docker Build') {
+    stage('Build') {
       steps {
-        sh '''
-        docker build -t demo-docker .
-        docker tag demo-docker:latest jenkins/pg-docker/demo-docker:latest
-        '''
+        echo "building"
       }
     }
-    stage('Test') {
+    stage('AWS S3 List') {
       steps {
-        sh '''
-        docker images -a
-        '''
+        container('aws') {
+          sh '''
+          aws s3 ls
+          '''
+        }
       }
     }
   }
