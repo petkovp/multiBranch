@@ -1,18 +1,20 @@
 pipeline {
   agent {
     kubernetes {
-      inheritFrom 'aws'
+      inheritFrom 'aws-pod'
     }
   }
   stages {
     stage('Build') {
       steps {
-        echo "building"
+        container('aws-pod') {
+          echo "building"
+        }
       }
     }
     stage('AWS S3 List') {
       steps {
-        container('aws') {
+        container('aws-pod') {
           sh '''
           aws s3 ls
           '''
